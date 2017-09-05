@@ -1,15 +1,15 @@
 
 public class Individual {
-	private byte [] gene;
+	private char [] gene;
 	private int fitness;
 	
 	public Individual() {
-		gene = new byte[Main.solution.length];
+		gene = new char[Main.solution.length];
 	}
 	
 	public void init() {
 		for(int i = 0; i < gene.length; i++) {
-			gene[i] = (byte)(Math.round(Math.random()));
+			gene[i] = FitnessCalc.getRandom();
 		}
 	}
 
@@ -21,11 +21,11 @@ public class Individual {
 		this.fitness = fitness;
 	}
 
-	public byte[] getGene() {
+	public char[] getGene() {
 		return gene;
 	}
 
-	public void setGene(byte[] gene) {
+	public void setGene(char[] gene) {
 		this.gene = gene;
 	}
 	

@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class FitnessCalc {
 	
-	static double mutationRate = 0.001;
+	static double mutationRate = 0.01;
 	static int tournamentSize = 5;
 
 	public static Population nextGeneration(Population pop) {
@@ -30,7 +30,7 @@ public class FitnessCalc {
 	
 	public static Individual crossover(Individual parent1, Individual parent2) {
 		Individual child = new Individual();
-		byte[] newGene = new byte[parent1.getGene().length];
+		char[] newGene = new char[parent1.getGene().length];
 		for(int i = 0; i < newGene.length; i++) {
 			newGene[i] = (Math.random() >= 0.5) ? parent1.getGene()[i] : parent2.getGene()[i];
 		}
@@ -40,14 +40,10 @@ public class FitnessCalc {
 	
 	public static Individual mutation(Individual ind, double rate) {
 		Individual newInd = new Individual();
-		byte[] gene = new byte[newInd.getGene().length];
+		char[] gene = new char[newInd.getGene().length];
 		for(int i = 0; i < newInd.getGene().length; i++) {
 			if(Math.random() <= rate) {
-				if(ind.getGene()[i]  == 0) {
-					gene[i] = 1;					
-				}else {
-					gene[i] = 0;
-				}
+				gene[i] = FitnessCalc.getRandom();
 			}else {
 				gene[i] = ind.getGene()[i];				
 			}
@@ -66,7 +62,7 @@ public class FitnessCalc {
 	}
 
 	public static int calculateFitness(Individual ind) {
-		byte[] gene = ind.getGene();
+		char[] gene = ind.getGene();
 		int fitness = 0;
 		for (int i = 0; i < gene.length; i++) {
 			if (gene[i] == Main.solution[i]) {
@@ -74,5 +70,10 @@ public class FitnessCalc {
 			}
 		}
 		return fitness;
+	}
+	public static char getRandom() {
+		int ch = (int)(Math.random()*95) + 32;
+		if (ch == 96) ch = 32;
+		return (char) ch;
 	}
 }
